@@ -1,0 +1,101 @@
+{
+  "sdk": 6,
+  "version": 100,
+  "name": "Pinnacle Dynamo Integration",
+  "id": "pinnacle_dynamo",
+  "configuration": {
+    "colorDark": "#25274c",
+    "colorLight": "#707ab5"
+  },
+  "plugin_start_cmd": "%TP_PLUGIN_FOLDER%PinnacleDynamoTouchPortalPlugin\\pinnacle_dynamo_plugin.exe @plugin-example-conf.txt",
+  "categories": [
+    {
+      "id": "pinnacle_dynamo.cat.presentation",
+      "name": "PinnacleDynamoPlugin",
+      "actions": [
+        {
+          "id": "pinnacle_dynamo.act.trigger-next-slide",
+          "name": "Trigger Next Slide",
+          "prefix": "PinnacleDynamoPlugin",
+          "type": "communicate",
+          "format": "Trigger next slide in cue",
+          "tryInline": true,
+          "data": []
+        },
+        {
+          "id": "pinnacle_dynamo.act.trigger-prev-slide",
+          "name": "Trigger Previous Slide",
+          "prefix": "PinnacleDynamoPlugin",
+          "type": "communicate",
+          "format": "Trigger previous slide in cue",
+          "tryInline": true,
+          "data": []
+        },
+        {
+          "id": "pinnacle_dynamo.act.trigger-next-presentation",
+          "name": "Trigger Next Presentation",
+          "prefix": "PinnacleDynamoPlugin",
+          "type": "communicate",
+          "format": "Trigger next presentation",
+          "tryInline": true,
+          "data": []
+        },
+        {
+          "id": "pinnacle_dynamo.act.trigger-prev-presentation",
+          "name": "Trigger Previous Presentation",
+          "prefix": "PinnacleDynamoPlugin",
+          "type": "communicate",
+          "format": "Trigger previous presentation",
+          "tryInline": true,
+          "data": []
+        },
+        {
+          "id": "pinnacle_dynamo.act.clear-all-layers",
+          "name": "Clear All Layers",
+          "prefix": "PinnacleDynamoPlugin",
+          "type": "communicate",
+          "format": "Clear All Layers",
+          "tryInline": true,
+          "data": []
+        },
+        {
+          "id": "pinnacle_dynamo.act.clear-layer",
+          "name": "Clear Layer",
+          "prefix": "PinnacleDynamoPlugin",
+          "type": "communicate",
+          "format": "Clear {$pinnacle_dynamo.act.clear-layer.data.layer-picker$} layer",
+          "tryInline": true,
+          "data": [
+            {
+              "id": "pinnacle_dynamo.act.clear-layer.data.layer-picker",
+              "type": "choice",
+              "default": "",
+              "valueChoices": [
+                "media",
+                "slide",
+                "audio"
+              ]
+            }
+          ]
+        }
+      ],
+      "states": [],
+      "events": [],
+      "connectors": []
+    }
+  ],
+  "settings": [
+    {
+      "name": "API Port",
+      "type": "number",
+      "default": "5010",
+      "readOnly": false
+    },
+    {
+      "name": "API Address",
+      "type": "text",
+      "default": "http://127.0.0.1",
+      "readOnly": false
+    }
+  ]
+}
