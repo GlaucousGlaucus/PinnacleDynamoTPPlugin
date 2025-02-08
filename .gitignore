@@ -1,2 +1,4 @@
 !/tp.plugin.pinnacle_dynamo.log
 !/pinnacle_dynamo.log
+*.tpp
+*.log
