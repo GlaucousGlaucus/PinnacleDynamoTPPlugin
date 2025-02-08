@@ -6,7 +6,7 @@ TP_PLUGIN_INFO = {
     'name': PLUGIN_NAME,
     'id': PLUGIN_ID,
     # Startup command, with default logging options read from configuration file (see main() for details)
-    "plugin_start_cmd": "%TP_PLUGIN_FOLDER%PinnacleDynamoTouchPortalPlugin\\pinnacle_dynamo_plugin.exe @plugin-example-conf.txt",
+    "plugin_start_cmd": "%TP_PLUGIN_FOLDER%PDPlugin\\pd_plugin.exe",
     'configuration': {
         'colorDark': "#25274c",
         'colorLight': "#707ab5"

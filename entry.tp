@@ -7,7 +7,7 @@
     "colorDark": "#25274c",
     "colorLight": "#707ab5"
   },
-  "plugin_start_cmd": "%TP_PLUGIN_FOLDER%PinnacleDynamoTouchPortalPlugin\\pinnacle_dynamo_plugin.exe @plugin-example-conf.txt",
+  "plugin_start_cmd": "%TP_PLUGIN_FOLDER%PDPlugin\\pd_plugin.exe",
   "categories": [
     {
       "id": "pinnacle_dynamo.cat.presentation",

@@ -1,5 +1,4 @@
 import sys
-from argparse import ArgumentParser
 
 import TouchPortalAPI as TP
 import requests
@@ -7,7 +6,7 @@ from TouchPortalAPI.logger import Logger
 from requests import Response
 
 from constants import PLUGIN_ID, __version__, PluginActionIDs, PluginActionDataIDs
-from entry_tp_gen import TP_PLUGIN_SETTINGS, TP_PLUGIN_INFO, TP_PLUGIN_ACTIONS, TP_PLUGIN_STATES, TP_PLUGIN_CATEGORIES
+from entry_tp_gen import TP_PLUGIN_SETTINGS, TP_PLUGIN_INFO, TP_PLUGIN_CATEGORIES, TP_PLUGIN_ACTIONS, TP_PLUGIN_EVENTS, TP_PLUGIN_STATES
 
 # Create the Touch Portal API client.
 try:
