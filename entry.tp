@@ -12,6 +12,7 @@
     {
       "id": "pinnacle_dynamo.cat.presentation",
       "name": "PinnacleDynamoPlugin",
+      "imagepath": "%TP_PLUGIN_FOLDER%PinnacleDynamoTouchPortalPlugin/Resources/images/o-1.png",
       "actions": [
         {
           "id": "pinnacle_dynamo.act.trigger-next-slide",
@@ -87,15 +88,15 @@
   ],
   "settings": [
     {
-      "name": "API Port",
-      "type": "number",
-      "default": "5010",
+      "name": "API IP",
+      "type": "text",
+      "default": "127.0.0.1",
       "readOnly": false
     },
     {
-      "name": "API Address",
-      "type": "text",
-      "default": "http://127.0.0.1",
+      "name": "API Port",
+      "type": "number",
+      "default": "5010",
       "readOnly": false
     }
   ]

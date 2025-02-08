@@ -78,7 +78,7 @@ PLUGIN_ENTRY = PLUGIN_MAIN  # Here we just use the same file as the plugin's mai
 PLUGIN_ENTRY_INDENT = 2
 
 """ This is the root folder name that will be inside of .tpp """
-PLUGIN_ROOT = "TPExamplePlugin"
+PLUGIN_ROOT = "PDPlugin"
 
 """ Path to icon file used in entry.tp for category `imagepath`, if any. If left blank, TP will use a default icon. """
 PLUGIN_ICON = r""

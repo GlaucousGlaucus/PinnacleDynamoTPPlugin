@@ -63,7 +63,7 @@ def onAction(data):
     if not (aid := data.get('actionId')):
     # if not (action_data := data.get('data')) or not (aid := data.get('actionId')):
             return
-    base_address = f"{TP_PLUGIN_SETTINGS['api_address']['value']}:{TP_PLUGIN_SETTINGS['api_port']['value']}"
+    base_address = f"http://{TP_PLUGIN_SETTINGS['api_address']['value']}:{TP_PLUGIN_SETTINGS['api_port']['value']}"
     if aid == PluginActionIDs.TRIGGER_NEXT_SLIDE:
         address = f"{base_address}/presentation/active/next/trigger"
         response: Response = requests.get(address)

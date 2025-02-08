@@ -20,6 +20,14 @@ TP_PLUGIN_INFO = {
 
 # Setting(s) for this plugin.
 TP_PLUGIN_SETTINGS = {
+    'api_address': {
+        'name': "API IP",
+        'type': "text",
+        'default': r"127.0.0.1",
+        'readOnly': False,  # this is also the default
+        "doc": "The address for the API",
+        'value': None  # we can optionally use the settings struct to hold the current value
+    },
     'api_port': {
         'name': "API Port",
         'type': "number",
@@ -29,14 +37,6 @@ TP_PLUGIN_SETTINGS = {
                "and see the port from there",
         'value': None  # we can optionally use the settings struct to hold the current value
     },
-    'api_address': {
-        'name': "API Address",
-        'type': "text",
-        'default': r"http://127.0.0.1",
-        'readOnly': False,  # this is also the default
-        "doc": "The address for the API",
-        'value': None  # we can optionally use the settings struct to hold the current value
-    }
 }
 
 TP_PLUGIN_CATEGORIES = {
@@ -44,7 +44,7 @@ TP_PLUGIN_CATEGORIES = {
         "category": "main",
         'id': PluginCategories.PRESENTATION,
         'name': "PinnacleDynamoPlugin",
-        # 'imagepath' : "icon-24.png"
+        'imagepath': r"%TP_PLUGIN_FOLDER%PinnacleDynamoTouchPortalPlugin/Resources/images/o-1.png"
     },
 }
 
