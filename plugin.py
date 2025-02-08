@@ -7,7 +7,7 @@ from TouchPortalAPI.logger import Logger
 from requests import Response
 
 from constants import PLUGIN_ID, __version__, PluginActionIDs, PluginActionDataIDs
-from entry_tp_gen import TP_PLUGIN_SETTINGS, TP_PLUGIN_INFO, TP_PLUGIN_ACTIONS, TP_PLUGIN_STATES
+from entry_tp_gen import TP_PLUGIN_SETTINGS, TP_PLUGIN_INFO, TP_PLUGIN_ACTIONS, TP_PLUGIN_STATES, TP_PLUGIN_CATEGORIES
 
 # Create the Touch Portal API client.
 try:

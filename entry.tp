@@ -69,6 +69,7 @@
             {
               "id": "pinnacle_dynamo.act.clear-layer.data.layer-picker",
               "type": "choice",
+              "label": "Layer",
               "default": "",
               "valueChoices": [
                 "media",

@@ -128,6 +128,7 @@ TP_PLUGIN_ACTIONS = {
             "layers": {
                 "id": PluginActionDataIDs.LAYER_PICKER,
                 "type": "choice",
+                "label": "Layer",
                 "default": "",
                 "valueChoices": [
                     "media",
