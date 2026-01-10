@@ -1,0 +1,33 @@
+name: Checks
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  checks:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/pip
+            .venv
+          key: pip-${{ runner.os }}-${{ hashFiles('**/requirements*.txt') }}
+
+      - run: python -m venv .venv
+
+      - run: .\.venv\Scripts\activate && pip install -r requirements.txt
+
+      - run: .\.venv\Scripts\activate && pip install ruff
+
+      - run: .\.venv\Scripts\activate && ruff check .
