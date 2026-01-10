@@ -11,8 +11,8 @@ from constants import (
     PluginActionDataIDs,
 )
 from entry_tp_gen import (
-    TP_PLUGIN_SETTINGS,
-    TP_PLUGIN_INFO,
+    TP_PLUGIN_SETTINGS, # noqa: F401
+    TP_PLUGIN_INFO, # noqa: F401
     TP_PLUGIN_CATEGORIES, # noqa: F401
     TP_PLUGIN_ACTIONS, # noqa: F401
     TP_PLUGIN_EVENTS, # noqa: F401
