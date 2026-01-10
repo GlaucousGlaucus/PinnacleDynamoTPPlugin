@@ -1,4 +1,4 @@
-__version__ = "1.0"
+__version__ = "1.1"
 PLUGIN_ID = "pinnacle_dynamo"
 PLUGIN_NAME = "Pinnacle Dynamo Integration"
 
