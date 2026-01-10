@@ -6,6 +6,9 @@ on:
     tags:
       - "v*"
 
+permissions:
+  contents: write
+
 jobs:
   checks:
     uses: ./.github/workflows/check.yml
@@ -28,17 +31,19 @@ jobs:
             .venv
           key: pip-${{ runner.os }}-${{ hashFiles('**/requirements*.txt') }}
 
-      - run: python -m venv .venv
+      - name: Create venv
+        run: python -m venv .venv
 
-      - run: .\.venv\Scripts\activate && pip install -r requirements.txt
+      - name: Install dependencies
+        run: .\.venv\Scripts\python.exe -m pip install -r requirements.txt pyinstaller
 
-      - run: .\.venv\Scripts\activate && pip install pyinstaller
+      - name: Generate entry
+        run: .\.venv\Scripts\tppsdk.exe entry_tp_gen.py
 
-      - run: call gen_entry_tp.bat
+      - name: Build plugin
+        run: .\.venv\Scripts\tppbuild.exe build.py
 
-      - run: call build.bat
-
-      - uses: softprops/action-gh-release@v2
+      - name: Publish release
+        uses: softprops/action-gh-release@v2
         with:
-          files: |
-            dist/*.tpp
+          files: dist/*.tpp

@@ -1,0 +1,1 @@
+tppsdk entry_tp_gen.py
