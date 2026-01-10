@@ -35,10 +35,10 @@ jobs:
         run: .\.venv\Scripts\python.exe -m pip install -r requirements.txt pyinstaller
 
       - name: Generate entry
-        run: .\.venv\Scripts\python.exe -m .\venv\Scripts\tppsdk.exe entry_tp_gen.py
+        run: .\venv\Scripts\tppsdk.exe entry_tp_gen.py
 
       - name: Build plugin
-        run: .\.venv\Scripts\python.exe -m .\venv\Scripts\tppbuild.exe build.py
+        run: .\venv\Scripts\tppbuild.exe build.py
 
       - name: Publish release
         uses: softprops/action-gh-release@v2
