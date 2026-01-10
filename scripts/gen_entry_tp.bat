@@ -1,5 +1,3 @@
 cd ..
-
-.\.venv\Scripts\activate
-
+call .\.venv\Scripts\activate
 tppsdk entry_tp_gen.py

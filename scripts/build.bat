@@ -1,5 +1,3 @@
 cd ..
-
-.\.venv\Scripts\activate
-
+call .\.venv\Scripts\activate
 tppbuild build.py
