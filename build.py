@@ -6,7 +6,7 @@ PLUGIN_EXE_NAME = "pd_plugin"
 PLUGIN_EXE_ICON = r"Resources/images/pd_main.ico"
 
 PLUGIN_ROOT = "PDPlugin"
-OUTPUT_PATH = r"./"
+OUTPUT_PATH = r"./dist"
 
 PLUGIN_ENTRY = PLUGIN_MAIN
 PLUGIN_ENTRY_INDENT = 2

@@ -1,0 +1,44 @@
+name: Build and Release
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  checks:
+    uses: ./.github/workflows/check.yml
+
+  release:
+    needs: checks
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/pip
+            .venv
+          key: pip-${{ runner.os }}-${{ hashFiles('**/requirements*.txt') }}
+
+      - run: python -m venv .venv
+
+      - run: .\.venv\Scripts\activate && pip install -r requirements.txt
+
+      - run: .\.venv\Scripts\activate && pip install pyinstaller
+
+      - run: call gen_entry_tp.bat
+
+      - run: call build.bat
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/*.tpp
