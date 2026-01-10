@@ -1,16 +1,16 @@
 import sys
 
-import TouchPortalAPI as TP
+import TouchPortalAPI as tp
 import requests
 from TouchPortalAPI.logger import Logger
 from requests import Response
 
 from constants import PLUGIN_ID, __version__, PluginActionIDs, PluginActionDataIDs
-from entry_tp_gen import TP_PLUGIN_SETTINGS, TP_PLUGIN_INFO, TP_PLUGIN_CATEGORIES, TP_PLUGIN_ACTIONS, TP_PLUGIN_EVENTS, TP_PLUGIN_STATES
+from entry_tp_gen import TP_PLUGIN_SETTINGS, TP_PLUGIN_INFO
 
 # Create the Touch Portal API client.
 try:
-    TPClient = TP.Client(
+    TPClient = tp.Client(
         pluginId = PLUGIN_ID,  # required ID of this plugin
         sleepPeriod = 0.05,    # allow more time than default for other processes
         autoClose = True,      # automatically disconnect when TP sends "closePlugin" message
@@ -40,7 +40,7 @@ def handleSettings(settings, on_connect=False):
 
 ## TP Client event handler callbacks
 # Initial connection handler
-@TPClient.on(TP.TYPES.onConnect)
+@TPClient.on(tp.TYPES.onConnect)
 def onConnect(data):
     g_log.info(f"Connected to TP v{data.get('tpVersionString', '?')}, plugin v{data.get('pluginVersion', '?')}.")
     g_log.debug(f"Connection: {data}")
@@ -48,14 +48,14 @@ def onConnect(data):
         handleSettings(settings, True)
 
 # Settings handler
-@TPClient.on(TP.TYPES.onSettingUpdate)
+@TPClient.on(tp.TYPES.onSettingUpdate)
 def onSettingUpdate(data):
     g_log.debug(f"Settings: {data}")
     if settings := data.get('values'):
         handleSettings(settings, False)
 
 # Action handler
-@TPClient.on(TP.TYPES.onAction)
+@TPClient.on(tp.TYPES.onAction)
 def onAction(data):
     g_log.debug(f"Action: {data}")
     # check that `data` and `actionId` members exist and save them for later use
@@ -65,28 +65,28 @@ def onAction(data):
     base_address = f"http://{TP_PLUGIN_SETTINGS['api_address']['value']}:{TP_PLUGIN_SETTINGS['api_port']['value']}"
     if aid == PluginActionIDs.TRIGGER_NEXT_SLIDE:
         address = f"{base_address}/presentation/active/next/trigger"
-        response: Response = requests.get(address)
+        response: Response = requests.post(address)
         g_log.info(f"PD API Response: {response.text} for {address}")
     elif aid == PluginActionIDs.TRIGGER_PREV_SLIDE:
         address = f"{base_address}/presentation/active/prev/trigger"
-        response: Response = requests.get(address)
+        response: Response = requests.post(address)
         g_log.info(f"PD API Response: {response.text} for {address}")
     elif aid == PluginActionIDs.TRIGGER_NEXT_PRESENTATION:
         address = f"{base_address}/presentation/next/trigger"
-        response: Response = requests.get(address)
+        response: Response = requests.post(address)
         g_log.info(f"PD API Response: {response.text} for {address}")
     elif aid == PluginActionIDs.TRIGGER_PREV_PRESENTATION:
         address = f"{base_address}/presentation/prev/trigger"
-        response: Response = requests.get(address)
+        response: Response = requests.post(address)
         g_log.info(f"PD API Response: {response.text} for {address}")
     elif aid == PluginActionIDs.CLEAR_LAYER:
         layer = TPClient.getActionDataValue(data.get("data"), PluginActionDataIDs.LAYER_PICKER)
         address = f"{base_address}/clear/layer/{layer}"
-        response: Response = requests.get(address)
+        response: Response = requests.delete(address)
         g_log.info(f"PD API Response: {response.text} for {address}")
     elif aid == PluginActionIDs.CLEAR_ALL_LAYERS:
         address = f"{base_address}/clear/layer/all"
-        response: Response = requests.get(address)
+        response: Response = requests.delete(address)
         g_log.info(f"PD API Response: {response.text} for {address}")
     else:
         # set our example State text and color values with the data from this action
@@ -97,7 +97,7 @@ def onAction(data):
         g_log.warning("Got unknown action ID: " + aid)
 
 # Shutdown handler
-@TPClient.on(TP.TYPES.onShutdown)
+@TPClient.on(tp.TYPES.onShutdown)
 def onShutdown(data):
     g_log.info('Received shutdown event from TP Client.')
     # We do not need to disconnect manually because we used `autoClose = True`
@@ -105,7 +105,7 @@ def onShutdown(data):
     # TPClient.disconnect()
 
 # Error handler
-@TPClient.on(TP.TYPES.onError)
+@TPClient.on(tp.TYPES.onError)
 def onError(exc):
     g_log.error(f'Error in TP Client event handler: {repr(exc)}')
     # ... do something ?
