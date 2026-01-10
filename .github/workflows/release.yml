@@ -35,10 +35,10 @@ jobs:
       - run: .\.venv\Scripts\activate && pip install pyinstaller
 
       - name: Generate entry
-        run: cmd /c .\scripts\gen_entry_tp.bat
+        run: cmd /c gen_entry_tp.bat
 
       - name: Build plugin
-        run: cmd /c .\scripts\build.bat
+        run: cmd /c build.bat
 
       - uses: softprops/action-gh-release@v2
         with:
