@@ -49,3 +49,30 @@ Only the variables listed below are read by `tppbuild`.
 
 - TouchPortal API documentation
 - `TouchPortalAPI.tppbuild` source code
+
+
+## Touch Portal Plugin – Runtime Architecture
+
+This plugin is implemented using `TouchPortalAPI.Client` and communicates with a local HTTP API
+(Pinnacle Dynamo) via REST calls.
+
+### Runtime Model
+
+- Touch Portal establishes a persistent connection to the plugin.
+- The plugin reacts to events through registered callbacks:
+    - `onConnect`
+    - `onSettingUpdate`
+    - `onAction`
+    - `onShutdown`
+    - `onError`
+- Action handlers translate Touch Portal actions into HTTP requests.
+
+### Settings Handling
+
+Touch Portal sends settings as a list of single-key dictionaries:
+
+```json
+[
+  { "API Address": "127.0.0.1" },
+  { "API Port": "5010" }
+]
