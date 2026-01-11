@@ -132,6 +132,7 @@ TP_PLUGIN_ACTIONS = {
                 "default": "",
                 "valueChoices": [
                     "media",
+                    "foreground",
                     "slide",
                     "audio"
                 ]
