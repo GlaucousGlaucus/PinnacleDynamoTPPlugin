@@ -216,6 +216,135 @@ TP_PLUGIN_ACTIONS.update({
 
 })
 
+# Media
+TP_PLUGIN_ACTIONS.update({
+
+    "media_next_item": {
+        "category": "main",
+        "id": PluginActionIDs.MEDIA_NEXT_ITEM,
+        "name": "Next Media Item",
+        "prefix": ACTION_PREFIX,
+        "type": "communicate",
+        "tryInline": True,
+        "doc": "Triggers the next media item in the active playlist",
+        "format": "Trigger next media item",
+        "data": {}
+    },
+
+    "media_prev_item": {
+        "category": "main",
+        "id": PluginActionIDs.MEDIA_PREV_ITEM,
+        "name": "Previous Media Item",
+        "prefix": ACTION_PREFIX,
+        "type": "communicate",
+        "tryInline": True,
+        "doc": "Triggers the previous media item in the active playlist",
+        "format": "Trigger previous media item",
+        "data": {}
+    },
+
+    "media_select_item": {
+        "category": "main",
+        "id": PluginActionIDs.MEDIA_SELECT_ITEM,
+        "name": "Select Media Item",
+        "prefix": ACTION_PREFIX,
+        "type": "communicate",
+        "tryInline": True,
+        "doc": "Triggers the media item with the given ID",
+        "format": "Load media item ID $[1] on $[2] layer",
+        "data": {
+            "item_id": {
+                "id": PluginActionDataIDs.MEDIA_ITEM_ID,
+                "type": "text",
+                "label": "Media Item ID",
+                "default": ""
+            },
+            "layer": {
+                "id": PluginActionDataIDs.MEDIA_LAYER_SELECT_ITEM,
+                "type": "choice",
+                "label": "Layer",
+                "default": "background",
+                "valueChoices": [
+                    "background",
+                    "foreground"
+                ]
+            }
+        }
+    },
+
+    "media_next_playlist": {
+        "category": "main",
+        "id": PluginActionIDs.MEDIA_NEXT_PLAYLIST,
+        "name": "Next Media Playlist",
+        "prefix": ACTION_PREFIX,
+        "type": "communicate",
+        "tryInline": True,
+        "doc": "Focuses and loads the next media playlist",
+        "format": "Load next media playlist",
+        "data": {}
+    },
+
+    "media_prev_playlist": {
+        "category": "main",
+        "id": PluginActionIDs.MEDIA_PREV_PLAYLIST,
+        "name": "Previous Media Playlist",
+        "prefix": ACTION_PREFIX,
+        "type": "communicate",
+        "tryInline": True,
+        "doc": "Focuses and loads the previous media playlist",
+        "format": "Load previous media playlist",
+        "data": {}
+    },
+
+    "media_select_playlist": {
+        "category": "main",
+        "id": PluginActionIDs.MEDIA_SELECT_PLAYLIST,
+        "name": "Select Media Playlist",
+        "prefix": ACTION_PREFIX,
+        "type": "communicate",
+        "tryInline": True,
+        "doc": "Loads the media playlist with the given ID",
+        "format": "Load media playlist ID $[1]",
+        "data": {
+            "playlist_id": {
+                "id": PluginActionDataIDs.MEDIA_PLAYLIST_ID,
+                "type": "text",
+                "label": "Playlist ID",
+                "default": ""
+            }
+        }
+    },
+
+    "media_set_from_path": {
+        "category": "main",
+        "id": PluginActionIDs.MEDIA_SET_FROM_PATH,
+        "name": "Set Media From Path",
+        "prefix": ACTION_PREFIX,
+        "type": "communicate",
+        "tryInline": True,
+        "doc": "Loads a media file from an absolute path",
+        "format": "Set media from path $[1] on $[2] layer",
+        "data": {
+            "path": {
+                "id": PluginActionDataIDs.MEDIA_ABSOLUTE_PATH,
+                "type": "text",
+                "label": "Absolute File Path",
+                "default": ""
+            },
+            "layer": {
+                "id": PluginActionDataIDs.MEDIA_LAYER_FROM_PATH,
+                "type": "choice",
+                "label": "Layer",
+                "default": "background",
+                "valueChoices": [
+                    "background",
+                    "foreground"
+                ]
+            }
+        }
+    },
+})
+
 TP_PLUGIN_STATES = {
     # 'text': {
     #     # 'category' is optional, if omitted then this state will be added to all, or the only, category(ies)

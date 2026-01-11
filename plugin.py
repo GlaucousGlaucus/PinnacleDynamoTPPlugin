@@ -70,9 +70,9 @@ def _base_address():
     )
 
 
-def _post(path):
+def _post(path, json=None):
     address = f"{_base_address()}{path}"
-    response: Response = requests.post(address)
+    response: Response = requests.post(address, json=json)
     g_log.info(f"PD API Response: {response.text} for {address}")
 
 
@@ -96,22 +96,24 @@ def onAction(data):
 
     if aid == PluginActionIDs.TRIGGER_NEXT_SLIDE:
         _post("/presentation/active/next/trigger")
+
     elif aid == PluginActionIDs.TRIGGER_PREV_SLIDE:
         _post("/presentation/active/prev/trigger")
+
     elif aid == PluginActionIDs.TRIGGER_NEXT_PRESENTATION:
         _post("/presentation/next/trigger")
+
     elif aid == PluginActionIDs.TRIGGER_PREV_PRESENTATION:
         _post("/presentation/prev/trigger")
+
     elif aid == PluginActionIDs.CLEAR_LAYER:
         layer = TPClient.getActionDataValue(
             data.get("data"), PluginActionDataIDs.LAYER_PICKER
         )
         _delete(f"/clear/layer/{layer}")
+
     elif aid == PluginActionIDs.CLEAR_ALL_LAYERS:
         _delete("/clear/layer/all")
-
-    # elif aid == PluginActionIDs.GET_STAGE_MESSAGE:
-    #     _get("/stage/message")
 
     elif aid == PluginActionIDs.SET_STAGE_MESSAGE:
         message = TPClient.getActionDataValue(
@@ -127,6 +129,60 @@ def onAction(data):
             data.get("data"), PluginActionDataIDs.STAGE_LAYOUT_PICKER
         )
         _put(f"/stage/layout/{layout}")
+
+    elif aid == PluginActionIDs.MEDIA_NEXT_ITEM:
+        _post("/media/item/next")
+
+    elif aid == PluginActionIDs.MEDIA_PREV_ITEM:
+        _post("/media/item/previous")
+
+    elif aid == PluginActionIDs.MEDIA_SELECT_ITEM:
+        item_id = TPClient.getActionDataValue(
+            data.get("data"), PluginActionDataIDs.MEDIA_ITEM_ID
+        )
+
+        try:
+            item_id = int(item_id)
+        except (TypeError, ValueError):
+            g_log.warning(f"Invalid media item id: {item_id}")
+            return
+
+        layer = TPClient.getActionDataValue(
+            data.get("data"), PluginActionDataIDs.MEDIA_LAYER_SELECT_ITEM
+        )
+        _post(f"/media/item/select/{item_id}?layer={layer}")
+
+    elif aid == PluginActionIDs.MEDIA_NEXT_PLAYLIST:
+        _post("/media/playlist/next")
+
+    elif aid == PluginActionIDs.MEDIA_PREV_PLAYLIST:
+        _post("/media/playlist/previous")
+
+    elif aid == PluginActionIDs.MEDIA_SELECT_PLAYLIST:
+        playlist_id = TPClient.getActionDataValue(
+            data.get("data"), PluginActionDataIDs.MEDIA_PLAYLIST_ID
+        )
+
+        try:
+            playlist_id = int(playlist_id)
+        except (TypeError, ValueError):
+            g_log.warning(f"Invalid media item id: {playlist_id}")
+            return
+
+        _post(f"/media/playlist/select/{playlist_id}")
+
+    elif aid == PluginActionIDs.MEDIA_SET_FROM_PATH:
+        path = TPClient.getActionDataValue(
+            data.get("data"), PluginActionDataIDs.MEDIA_ABSOLUTE_PATH
+        )
+        layer = TPClient.getActionDataValue(
+            data.get("data"), PluginActionDataIDs.MEDIA_LAYER_FROM_PATH
+        )
+        _post(
+            f"/media/item/from_path?layer={layer}",
+            json={"path": path}
+        )
+
     else:
         g_log.warning(f"Unknown action ID: {aid}")
 
