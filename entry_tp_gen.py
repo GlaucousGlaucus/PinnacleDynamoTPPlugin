@@ -1,18 +1,19 @@
-from constants import PLUGIN_ID, PLUGIN_NAME, __version__, PluginCategories, PluginActionIDs, PluginActionDataIDs
+from build import PLUGIN_ROOT
+from constants import PLUGIN_ID, PLUGIN_NAME, __version__, PluginActionIDs, PluginActionDataIDs, \
+    PluginCategories
 
 TP_PLUGIN_INFO = {
     'api': 10,
-    'version': int(float(__version__) * 100),  # TP only recognizes integer version numbers
+    'version': __version__,  # TP only recognizes integer version numbers
     'name': PLUGIN_NAME,
     'id': PLUGIN_ID,
     # Startup command, with default logging options read from configuration file (see main() for details)
-    "plugin_start_cmd": "%TP_PLUGIN_FOLDER%PDPlugin\\pd_plugin.exe",
+    "plugin_start_cmd": f"%TP_PLUGIN_FOLDER%{PLUGIN_ROOT}\\pd_plugin.exe",
     'configuration': {
         'colorDark': "#25274c",
         'colorLight': "#707ab5"
     },
     "doc": {
-        # "repository": "KillerBOSS2019:TouchPortal-API",
         "Install": "example install instruction",
         "description": "example description"
     }
@@ -140,6 +141,80 @@ TP_PLUGIN_ACTIONS = {
         }
     },
 }
+
+# Stage
+TP_PLUGIN_ACTIONS.update({
+
+    'get_stage_message': {
+        'category': "main",
+        'id': PluginActionIDs.GET_STAGE_MESSAGE,
+        'name': "Get Stage Message",
+        'prefix': ACTION_PREFIX,
+        'type': "communicate",
+        'tryInline': True,
+        "doc": "Fetches the current stage message",
+        'format': "Get stage message",
+        'data': {}
+    },
+
+    'set_stage_message': {
+        'category': "main",
+        'id': PluginActionIDs.SET_STAGE_MESSAGE,
+        'name': "Set Stage Message",
+        'prefix': ACTION_PREFIX,
+        'type': "communicate",
+        'tryInline': True,
+        "doc": "Sets the stage message",
+        'format': "Set stage message: $[1]",
+        'data': {
+            "message": {
+                "id": PluginActionDataIDs.STAGE_MESSAGE_TEXT,
+                "type": "text",
+                "label": "Stage Message",
+                "default": ""
+            }
+        }
+    },
+
+    'clear_stage_message': {
+        'category': "main",
+        'id': PluginActionIDs.CLEAR_STAGE_MESSAGE,
+        'name': "Clear Stage Message",
+        'prefix': ACTION_PREFIX,
+        'type': "communicate",
+        'tryInline': True,
+        "doc": "Clears the stage message",
+        'format': "Clear stage message",
+        'data': {}
+    },
+
+    'set_stage_layout': {
+        'category': "main",
+        'id': PluginActionIDs.SET_STAGE_LAYOUT,
+        'name': "Set Stage Layout",
+        'prefix': ACTION_PREFIX,
+        'type': "communicate",
+        'tryInline': True,
+        "doc": "Sets the stage screen layout",
+        'format': "Set stage layout to $[1]",
+        'data': {
+            "layout_type": {
+                "id": PluginActionDataIDs.STAGE_LAYOUT_PICKER,
+                "type": "choice",
+                "label": "Layout",
+                "default": "normal",
+                "valueChoices": [
+                    "normal",
+                    "screen-capture",
+                    "window-capture",
+                    "audience-scene",
+                    "slides-view"
+                ]
+            }
+        }
+    },
+
+})
 
 TP_PLUGIN_STATES = {
     # 'text': {

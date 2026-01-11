@@ -76,6 +76,12 @@ def _post(path):
     g_log.info(f"PD API Response: {response.text} for {address}")
 
 
+def _put(path, json=None):
+    address = f"{_base_address()}{path}"
+    response: Response = requests.put(address, json=json)
+    g_log.info(f"PD API Response: {response.text} for {address}")
+
+
 def _delete(path):
     address = f"{_base_address()}{path}"
     response: Response = requests.delete(address)
@@ -103,6 +109,24 @@ def onAction(data):
         _delete(f"/clear/layer/{layer}")
     elif aid == PluginActionIDs.CLEAR_ALL_LAYERS:
         _delete("/clear/layer/all")
+
+    # elif aid == PluginActionIDs.GET_STAGE_MESSAGE:
+    #     _get("/stage/message")
+
+    elif aid == PluginActionIDs.SET_STAGE_MESSAGE:
+        message = TPClient.getActionDataValue(
+            data.get("data"), PluginActionDataIDs.STAGE_MESSAGE_TEXT
+        )
+        _put("/stage/message", json={"message": message})
+
+    elif aid == PluginActionIDs.CLEAR_STAGE_MESSAGE:
+        _delete("/stage/message")
+
+    elif aid == PluginActionIDs.SET_STAGE_LAYOUT:
+        layout = TPClient.getActionDataValue(
+            data.get("data"), PluginActionDataIDs.STAGE_LAYOUT_PICKER
+        )
+        _put(f"/stage/layout/{layout}")
     else:
         g_log.warning(f"Unknown action ID: {aid}")
 
